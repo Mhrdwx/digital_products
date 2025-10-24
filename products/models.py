@@ -18,10 +18,32 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
 class Product(models.Model):
+    title = models.CharField("title" , max_length=50)
+    description = models.TextField("description" , blank=True)
+    avatar =  models.ImageField("avatar" , blank=True , upload_to="products/")
+    is_enable = models.BooleanField(default=True)
+    categories = models.ManyToManyField("Category" , verbose_name="categories" , blank=True)
+    created_time = models.DateTimeField(auto_now_add=True)
+    updated_time = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "products"
+        verbose_name = "Product" #For admin panel
+        verbose_name_plural = "Products"
 
 
 
 class File(models.Model):
-    pass
+    product = models.ForeignKey("Product" , verbose_name="product" , on_delete=models.CASCADE)
+    title = models.CharField("title" , max_length=50)
+    file = models.FileField("file" , blank=True , upload_to="files/%Y/%m/%d/")
+    is_enable = models.BooleanField(default=True)
+    created_time = models.DateTimeField(auto_now_add=True)
+    updated_time = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "files"
+        verbose_name = "File"
+        verbose_name_plural = "Files"
 
 
