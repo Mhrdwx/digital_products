@@ -83,8 +83,8 @@ class CategoryDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class FileListView(APIView):
-    def get(self , request):
-        files = File.objects.all()
+    def get(self , request , product_pk):
+        files = File.objects.filter(product_id=product_pk)
         serializer = FileSerializer(files, many = True , context={'request':request})
         return Response(serializer.data)
     def post(self , request):
@@ -92,9 +92,9 @@ class FileListView(APIView):
 
 
 class FileDetailView(APIView):
-    def get(self , request , pk):
+    def get(self , request ,product_pk ,pk):
         try:
-            file = File.objects.get(pk=pk)
+            file = File.objects.get(pk=pk , product_id=product_pk )
         except File.DoesNotExist:
             return Response("File Not Found", status=status.HTTP_404_NOT_FOUND)
         serializer = FileSerializer(file , context={'request':request})
