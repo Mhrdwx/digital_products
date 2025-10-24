@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 from pathlib import Path
+from .Local_settings import *
 
 from django.conf.global_settings import MEDIA_ROOT
 
@@ -25,9 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6wy8d^5ku66xb*bp9eezy_hjma=fj^mx^^d636unibbe29y6&1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition

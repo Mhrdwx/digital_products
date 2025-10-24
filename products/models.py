@@ -17,6 +17,9 @@ class Category(models.Model):
         verbose_name = "Category" #admin panel
         verbose_name_plural = "Categories"
 
+    def __str__(self):
+        return self.title
+
 class Product(models.Model):
     title = models.CharField("title" , max_length=50)
     description = models.TextField("description" , blank=True)
