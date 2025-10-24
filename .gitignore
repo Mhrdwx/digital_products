@@ -4,3 +4,4 @@ venv/
 **/__pycache__/
 *.pyc
 .venv/
+.digital_products.settings.py/
