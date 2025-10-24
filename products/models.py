@@ -37,7 +37,7 @@ class Product(models.Model):
 
 
 class File(models.Model):
-    product = models.ForeignKey("Product" , verbose_name="product" , on_delete=models.CASCADE)
+    product = models.ForeignKey("Product" , verbose_name="product" ,related_name="files" ,on_delete=models.CASCADE)
     title = models.CharField("title" , max_length=50)
     file = models.FileField("file" , blank=True , upload_to="files/%Y/%m/%d/")
     is_enable = models.BooleanField(default=True)
