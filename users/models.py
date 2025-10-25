@@ -1,4 +1,5 @@
 import random
+import uuid
 from wsgiref.validate import validator
 
 from django.contrib.auth.base_user import AbstractBaseUser
@@ -80,3 +81,31 @@ class User(AbstractBaseUser , PermissionsMixin):
         verbose_name = "user"
         verbose_name_plural = "users"
 
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User , on_delete=models.CASCADE)
+    nick_name = models.CharField(max_length=50 , blank=True)
+    avatar = models.ImageField(blank=True)
+    birthday = models.DateField(null=True , blank = True)
+    gender = models.NullBooleanField(help_text="false is female  & true is male , null is unset")
+    province = models.ForeignKey(to='Province',on_delete=models.SET_NULL , null=True , blank=True , help_text="Province")
+
+    class Meta:
+        db_table = "user_profiles"
+        verbose_name = "user_profile"
+        verbose_name_plural = "user_profiles"
+
+
+class Device(models.Model):
+    WEB = 1
+    IOS = 2
+    ANDROID = 3
+    DEVICE_TYPE_CHOICES = (
+    (WEB , "web") ,
+    (IOS , "ios"),
+    (ANDROID , "android")
+    )
+
+    user = models.ForeignKey(User,related_name="devices" ,on_delete=models.CASCADE)
+    device_uuid = models.UUIDField('device uuid', null = True)
